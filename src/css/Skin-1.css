@@ -1,0 +1,46 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 05/08/2014, 23:49:37
+    Author     : Laercio Lima
+*/
+
+.root{
+    -fx-background-color: linear-gradient(#3c3c3c, #3c3c3c);
+}
+
+#btn_play{
+    -fx-border-radius: 20;
+    -fx-background-radius: 20;
+    
+    -fx-background-color: linear-gradient(#464646, #1d1d1d);
+
+}
+
+.botao{
+    -fx-background-color: linear-gradient(#464646, #1d1d1d);
+}
+
+.botao:selected{
+    -fx-background-color: linear-gradient(#1d1d1d, #464646);
+}
+
+.botao:active{
+    -fx-vgap: 1px;
+}
+
+.slider .track{
+    -fx-background-color: #888888;
+}
+
+.slider .thumb{
+    -fx-background-color: white
+}
+
+.list-view:focused .list-cell:filled:selected{
+    -fx-background-color: #303030;
+    -fx-text-fill: white;
+}
