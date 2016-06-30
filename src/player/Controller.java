@@ -35,8 +35,6 @@ import javafx.stage.FileChooser;
 import javafx.util.Duration;
 import javax.swing.JOptionPane;
 
-
-
 /**
  *
  * @author laercio
@@ -67,7 +65,6 @@ public class Controller implements Initializable {
 
     ObservableList<String> lista_de_musicas = null;
 
-    
     PlayList currentPlayList;
     int faixa_atual = 0;
     boolean aleatorio = false;
@@ -90,7 +87,6 @@ public class Controller implements Initializable {
                 return;
             }
 
-            
             try {
                 media = new Media(currentPlayList.getMusicas().get(faixa_atual).toURI().toString());
             } catch (Exception e) {
@@ -127,7 +123,7 @@ public class Controller implements Initializable {
                 }
             });
         }
-        
+
         img_btn_play.setImage(new Image(Controller.class.getResource("Imagens/pause.png").toString()));
 
     }
@@ -145,9 +141,10 @@ public class Controller implements Initializable {
             faixa_atual = 0;
             currentPlayList.getMusicas().clear();
             for (int i = 0; i < list.size(); i++) {
-                if(list.get(i).isDirectory())
+                if (list.get(i).isDirectory()) {
                     continue;
-                
+                }
+
                 if (list.get(i).getAbsolutePath().contains(".pls")) {
                     currentPlayList.abrir(list.get(i).getAbsolutePath());
                     continue;
@@ -211,35 +208,34 @@ public class Controller implements Initializable {
     }
 
     public void stop() {
-        
+
         player.stop();
         img_btn_play.setImage(new Image(Controller.class.getResource("Imagens/play.png").toString()));
         tempo.setText("00:00/00:00");
         label.setText("");
     }
-    
-    public void btn_play(){
-        
-            img_btn_play.setImage(new Image(Controller.class.getResource("Imagens/pause.png").toString()));
-        
-        if(player == null)
+
+    public void btn_play() {
+
+        img_btn_play.setImage(new Image(Controller.class.getResource("Imagens/pause.png").toString()));
+
+        if (player == null) {
             return;
-        
+        }
+
         player.pausar();
-        if(MediaPlayer.Status.PAUSED == player.getPlayer().getStatus() ){
-            
-            
+        if (MediaPlayer.Status.PAUSED == player.getPlayer().getStatus()) {
+
             img_btn_play.setImage(new Image(Controller.class.getResource("Imagens/pause.png").toString()));
-            
-        }else if (MediaPlayer.Status.STOPPED == player.getPlayer().getStatus()) {
+
+        } else if (MediaPlayer.Status.STOPPED == player.getPlayer().getStatus()) {
             player.stop();
             play();
-            
-        }else{
+
+        } else {
             img_btn_play.setImage(new Image(Controller.class.getResource("Imagens/play.png").toString()));
         }
-        
-        
+
     }
 
     public void changeVolume() {
@@ -307,17 +303,13 @@ public class Controller implements Initializable {
 
             }
         });
-        
+
         volume.valueProperty().addListener(new ChangeListener<Number>() {
             public void changed(ObservableValue<? extends Number> ov,
-                Number old_val, Number new_val) {
-                    changeVolume();
+                    Number old_val, Number new_val) {
+                changeVolume();
             }
         });
-
-        
-        
-        
 
         botao_aleatorio.setOnAction(new EventHandler<ActionEvent>() {
 
@@ -386,7 +378,6 @@ public class Controller implements Initializable {
 
         if (duration.greaterThan(Duration.ZERO)) {
             int intDuration = (int) Math.floor(duration.toSeconds());
-            System.out.println(intDuration);
             int durationHours = intDuration / (60 * 60);
             if (durationHours > 0) {
                 intDuration -= durationHours * 60 * 60;
@@ -403,16 +394,13 @@ public class Controller implements Initializable {
                         elapsedMinutes, elapsedSeconds, durationMinutes,
                         durationSeconds);
             }
+        } else if (elapsedHours > 0) {
+            return String.format("%d:%02d:%02d", elapsedHours,
+                    elapsedMinutes, elapsedSeconds);
         } else {
-            if (elapsedHours > 0) {
-                return String.format("%d:%02d:%02d", elapsedHours,
-                        elapsedMinutes, elapsedSeconds);
-            } else {
-                return String.format("%02d:%02d", elapsedMinutes,
-                        elapsedSeconds);
-            }
+            return String.format("%02d:%02d", elapsedMinutes,
+                    elapsedSeconds);
         }
     }
-
 
 }
